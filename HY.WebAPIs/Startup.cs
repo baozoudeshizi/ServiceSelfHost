@@ -64,6 +64,8 @@ namespace WebAPIs
             //将AutoFac解析器设置为系统DI解析器
             config.DependencyResolver = autoFacResolver;
 
+
+            MonitorTask.Init(); //开始监控
             //AddHttpContextSetup();
         }
 
