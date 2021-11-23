@@ -472,9 +472,9 @@
   <PropertyGroup>
     <PostBuildEvent>copy /Y $(TargetPath) $(SolutionDir)issue\
 copy /y $(TargetDir)*.config $(SolutionDir)issue\
-copy /y $(TargetDir)SmartLabServiceApi.xml $(SolutionDir)issue\
-copy /y $(TargetDir)MobileServer.Services.dll $(SolutionDir)issue\
-copy /y $(TargetDir)MobileServer.Models.dll $(SolutionDir)issue\
-copy /y $(TargetDir)MobileServer.Common.dll $(SolutionDir)issue\</PostBuildEvent>
+copy /y $(TargetDir)HY.WebAPIs.xml $(SolutionDir)issue\
+copy /y $(TargetDir)HY.Services.dll $(SolutionDir)issue\
+copy /y $(TargetDir)HY.Models.dll $(SolutionDir)issue\
+copy /y $(TargetDir)HY.Common.dll $(SolutionDir)issue\</PostBuildEvent>
   </PropertyGroup>
 </Project>
