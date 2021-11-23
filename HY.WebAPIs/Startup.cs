@@ -1,9 +1,15 @@
 ﻿using HY.Common;
+using HY.Common.GlobalContext;
+using HY.Common.Helpers;
+using HY.Models.Model;
 using Microsoft.AspNet.SignalR;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Owin.Cors;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Owin;
 using System;
+using System.IO;
 using System.Web.Http;
 using WebAPIs.App_Start;
 
@@ -42,6 +48,7 @@ namespace WebAPIs
                 DateTimeFormat = "yyyy-MM-dd HH:mm:ss"
             });
 
+            //app.UseAutofacWebApi(config);
             app.UseWebApi(config);
             SwaggerConfig.Register(config);
             //初始化配置AutoMapper
@@ -64,11 +71,23 @@ namespace WebAPIs
             //将AutoFac解析器设置为系统DI解析器
             config.DependencyResolver = autoFacResolver;
 
+            //LoadAllConfig(); //加载所有配置文件
 
-            MonitorTask.Init(); //开始监控
+            MonitorTask.GetMonitorTask().Start(); //开始监控
             //AddHttpContextSetup();
         }
 
+        //private void LoadAllConfig()
+        //{
+        //    var aa  = JsonConvert.DeserializeObject<MonitorConfigTest>(ConfigHelper.GetAllConfig( Path.GetFullPath("..\\DebugDir\\config.json")));
+        //    try
+        //    {
+        //        //var bb = Configuration.GetSection("MonitorConfigTest").Get<MonitorConfigTest>();
+        //    }
+        //    catch (Exception e)
+        //    {
+        //    }
+        //}
 
     }
 }

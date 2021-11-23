@@ -131,6 +131,10 @@
     <Compile Include="AspNetUser.cs" />
     <Compile Include="AspNetUserOld.cs" />
     <Compile Include="CurrentUser.cs" />
+    <Compile Include="GlobalContext\GlobalConfig.cs" />
+    <Compile Include="GlobalContext\GlobalVar.cs" />
+    <Compile Include="GlobalContext\MonitorConfigTest.cs" />
+    <Compile Include="Helpers\ConfigHelper.cs" />
     <Compile Include="Helpers\CurrentOperatorHelper.cs" />
     <Compile Include="Helpers\JWTTokenHelper.cs" />
     <Compile Include="IUser.cs" />

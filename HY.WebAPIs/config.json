@@ -1,16 +1,6 @@
 {
-  "exclude": [
-    "**/bin",
-    "**/bower_components",
-    "**/jspm_packages",
-    "**/node_modules",
-    "**/obj",
-    "**/platforms"
-  ],
-
-  "monitor": {
-    "path": "",
-    "isIncludeSub":"true"
-  }
-  
+    "monitor": {
+      "path": "C:\\Users\\Lenovo\\Desktop\\test",
+      "isIncludeSub": "true"
+    }
 }

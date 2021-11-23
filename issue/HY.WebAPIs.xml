@@ -1,0 +1,189 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>HY.WebAPIs</name>
+    </assembly>
+    <members>
+        <member name="T:WebApis.CachingSwaggerProvider">
+            <summary>
+            用于汉化Swagger
+            </summary>
+        </member>
+        <member name="M:WebApis.CachingSwaggerProvider.#ctor(Swashbuckle.Swagger.ISwaggerProvider)">
+            <summary>
+            构造函数
+            </summary>
+        </member>
+        <member name="M:WebApis.CachingSwaggerProvider.GetSwagger(System.String,System.String)">
+            <summary>
+            GetSwagger
+            </summary>
+        </member>
+        <member name="M:WebApis.CachingSwaggerProvider.GetControllerDesc">
+            <summary>
+            从API文档中读取控制器描述
+            </summary>
+            <returns>所有控制器描述</returns>
+        </member>
+        <member name="T:WebAPIs.App_Start.HttpAuthHeaderFilter">
+            <summary>
+            Swagger中加入token
+            </summary>
+        </member>
+        <member name="M:WebAPIs.App_Start.HttpAuthHeaderFilter.Apply(Swashbuckle.Swagger.Operation,Swashbuckle.Swagger.SchemaRegistry,System.Web.Http.Description.ApiDescription)">
+            <summary>
+            是否包含头部
+            </summary>
+            <param name="operation"></param>
+            <param name="schemaRegistry"></param>
+            <param name="apiDescription"></param>
+        </member>
+        <member name="T:WebAPIs.App_Start.SwaggerConfig">
+            <summary>
+            Swagger配置类
+            </summary>
+        </member>
+        <member name="M:WebAPIs.App_Start.SwaggerConfig.Register(System.Web.Http.HttpConfiguration)">
+            <summary>
+            注册
+            </summary>
+            <param name="config"></param>
+        </member>
+        <member name="T:WebAPIs.AutofacModuleRegister">
+            <summary>
+            依赖注入
+            </summary>
+        </member>
+        <member name="M:WebAPIs.AutofacModuleRegister.Load(Autofac.ContainerBuilder)">
+            <summary>
+            重写接在部分
+            </summary>
+            <param name="builder"></param>
+        </member>
+        <member name="T:WebAPIs.ApiAuthorizeAttribute">
+            <summary>
+            权限过滤器
+            </summary>
+        </member>
+        <member name="M:WebAPIs.ApiAuthorizeAttribute.OnAuthorization(System.Web.Http.Controllers.HttpActionContext)">
+            <summary>
+            
+            </summary>
+            <param name="actionContext"></param>
+        </member>
+        <member name="M:WebAPIs.AutoMapProfile.#ctor">
+            <summary>
+            配置映射文件
+            </summary>
+        </member>
+        <member name="T:WebAPIs.Controllers.TestController">
+            <summary>
+            测试用
+            尝试某些接口是否可以使用
+            </summary>
+        </member>
+        <member name="M:WebAPIs.Controllers.TestController.#ctor(HY.Services.ITestService)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="divice"></param>
+        </member>
+        <member name="M:WebAPIs.Controllers.TestController.TestDI">
+            <summary>
+            test
+            </summary>
+        </member>
+        <member name="T:WebAPIs.MonitorTask">
+            <summary>
+             开启监控任务
+            </summary>
+        </member>
+        <member name="M:WebAPIs.MonitorTask.GetMonitorTask">
+            <summary>
+            单例模式实现MonitorTask，暂未考虑线程安全
+            </summary>
+        </member>
+        <member name="M:WebAPIs.MonitorTask.Start">
+            <summary>
+            开启监控
+            </summary>
+        </member>
+        <member name="M:WebAPIs.MonitorTask.initConfig">
+            <summary>
+            初始化
+            </summary>
+        </member>
+        <member name="T:WebAPIs.IOCContainer">
+            <summary>
+             .NET Framework WebApi容器
+            </summary>
+        </member>
+        <member name="F:WebAPIs.IOCContainer.Instance">
+            <summary>
+            IoC容器
+            </summary>
+        </member>
+        <member name="M:WebAPIs.IOCContainer.Init(System.Func{Autofac.ContainerBuilder,Autofac.ContainerBuilder})">
+            <summary>
+            初始化Api容器
+            </summary>
+            <param name="func"></param>
+        </member>
+        <member name="M:WebAPIs.IOCContainer.MyBuild(Autofac.ContainerBuilder)">
+            <summary>
+            注册组件
+            </summary>
+            <param name="builder"></param>
+        </member>
+        <member name="M:WebAPIs.Program.Main">
+            <summary>
+            应用程序的主入口点。
+            </summary>
+        </member>
+        <member name="T:WebAPIs.Startup">
+            <summary>
+            开始类
+            </summary>
+        </member>
+        <member name="M:WebAPIs.Startup.Configuration(Owin.IAppBuilder)">
+            <summary>
+            初始化配置
+            </summary>
+            <param name="app"></param>
+        </member>
+        <member name="T:HY.WebAPIs.Controllers.MonitorController">
+            <summary>
+            监视器
+            </summary>
+        </member>
+        <member name="M:HY.WebAPIs.Controllers.MonitorController.#ctor">
+            <summary>
+            监视器
+            </summary>
+        </member>
+        <member name="M:HY.WebAPIs.Controllers.MonitorController.GetMonitorConfig">
+            <summary>
+            获取监视的配置文件
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:HY.WebAPIs.Controllers.MonitorController.SetMonitorConfig(HY.Models.Model.MonitorConfig)">
+            <summary>
+            设置监视的配置文件
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:HY.WebAPIs.Controllers.MonitorController.ReStartMonitorTask">
+            <summary>
+            重新手动重启监视任务
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:HY.WebAPIs.Controllers.MonitorController.SendData(System.Object)">
+            <summary>
+            向所有人广播消息
+            </summary>
+            <param name="data">发送的信息</param>
+        </member>
+    </members>
+</doc>

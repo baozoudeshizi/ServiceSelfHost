@@ -84,7 +84,6 @@
   <ItemGroup>
     <Compile Include="DTO\BaseDTO.cs" />
     <Compile Include="DTO\LoginDTO.cs" />
-    <Compile Include="DTO\SingleInjectionDTO.cs" />
     <Compile Include="Model\TData.cs" />
     <Compile Include="Model\TDataRet.cs" />
     <Compile Include="Model\UserInfoM.cs" />

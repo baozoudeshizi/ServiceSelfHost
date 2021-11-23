@@ -1,0 +1,6 @@
+{
+  "monitor": {
+    "Path": "string",
+    "IsIncludeSub": false
+  }
+}

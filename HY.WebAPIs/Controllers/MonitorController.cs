@@ -1,9 +1,13 @@
 ﻿using HY.Common;
+using HY.Common.Helpers;
+using HY.Models.Model;
 using Microsoft.AspNet.SignalR;
+using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Web.Http;
+using WebAPIs;
+using static HY.Models.Model.GlobalConfig;
 
 namespace HY.WebAPIs.Controllers
 {
@@ -12,53 +16,64 @@ namespace HY.WebAPIs.Controllers
     /// </summary>
     public class MonitorController : ApiController
     {
-        FileSystemWatcher fsWatcher = new FileSystemWatcher();
+        private readonly string configPath = Path.GetFullPath("..\\DebugDir\\config.json");
+
+        /// <summary>
+        /// 监视器
+        /// </summary>
         public MonitorController()
         {
 
         }
 
-        public void Start(string Path, bool IsIncludeSubdirectories = false)
+        /// <summary>
+        /// 获取监视的配置文件
+        /// </summary>
+        /// <returns></returns>
+        public MonitorConfig GetMonitorConfig()
         {
-            //开始监视
-            fsWatcher.Path = Path;  //设置监控路径
-            fsWatcher.IncludeSubdirectories = IsIncludeSubdirectories;  //是否监视指定路径中的子目录。
-            fsWatcher.NotifyFilter = NotifyFilters.FileName | NotifyFilters.DirectoryName | NotifyFilters.Size|NotifyFilters.LastWrite; //监视的几个类型
-            fsWatcher.Created += new FileSystemEventHandler(fileSystemWatcher_EventHandle);
-            fsWatcher.Deleted += new FileSystemEventHandler(fileSystemWatcher_EventHandle);
-            fsWatcher.Changed += new FileSystemEventHandler(fileSystemWatcher_EventHandle);
-            fsWatcher.Renamed += new RenamedEventHandler(fileSystemWatcher_Renamed);
-            fsWatcher.EnableRaisingEvents = true;
-
+            //string configPath = Path.GetFullPath("..\\..\\..\\DebugDir\\config.json");
+            MonitorConfig monitor = JsonConvert.DeserializeObject<MonitorConfig>(ConfigHelper.GetConfig("monitor",configPath));
+            return monitor;
         }
 
 
-        private void fileSystemWatcher_EventHandle(object sender, FileSystemEventArgs fsEvent)
+        /// <summary>
+        /// 设置监视的配置文件
+        /// </summary>
+        /// <returns></returns>
+        public TData<bool> SetMonitorConfig(MonitorConfig monitor)
         {
-            if (fsEvent.ChangeType == WatcherChangeTypes.Created)
+            //string configPath = Path.GetFullPath("..\\DebugDir\\config.json");
+            bool bIsSuccess = ConfigHelper.SetConfig("monitor", monitor, configPath, out string errMsg);
+            if (bIsSuccess)
             {
-                Console.WriteLine(fsEvent.Name + " 文件被建立了！");
-            }
-            else if (fsEvent.ChangeType == WatcherChangeTypes.Deleted)
-            {
-                Console.WriteLine(fsEvent.Name + " 文件被删除了！");
-            }
-            else if (fsEvent.ChangeType == WatcherChangeTypes.Changed)
-            {
-                Console.WriteLine(fsEvent.Name + " 文件被改变了！");
-                read(fsEvent.FullPath);
+                return TDataRet<bool>.Success(bIsSuccess,"设置成功");
             }
             else
             {
-                Console.WriteLine("未知操作类型！");
+                return TDataRet<bool>.Failure(bIsSuccess,errMsg);
             }
         }
 
-        private void fileSystemWatcher_Renamed(object sender, RenamedEventArgs fsEvent)
+
+        /// <summary>
+        /// 重新手动重启监视任务
+        /// </summary>
+        /// <returns></returns>
+        public TData<string> ReStartMonitorTask()
         {
-            Console.WriteLine("文件被重命名：" + "原名： " + fsEvent.OldName + "; 现在名字：" + fsEvent.Name);
-            read(fsEvent.FullPath);
+            try
+            {
+                MonitorTask.GetMonitorTask().Start();
+                return TDataRet<string>.Success("启动成功！");
+            }
+            catch(Exception e)
+            {
+                return TDataRet<string>.Failure(e.Message);
+            }
         }
+
 
         /// <summary>
         /// 向所有人广播消息
@@ -71,30 +86,8 @@ namespace HY.WebAPIs.Controllers
             perConnection.Connection.Broadcast(data);
         }
 
-        public void read(string path)
-        {
-            string[] line = File.ReadAllLines(path);
-            int startLine = 0;
-            //遍历所有行
-            for (int i = 0; i < line.Length; i++)
-            {
-                if(line[i].Trim().StartsWith("Target Compounds") && line[i].Trim().EndsWith("Qvalue"))
-                {
-                    startLine = i;
-                    break;
-                }
-
-            }
-
-            //打印所有行
-            for (int i = startLine; i < line.Length-1; i++)
-            {
-                string l = line[i];
-                string[] aa = l.Split(new char[] {'\t'},StringSplitOptions.None);
-                Console.WriteLine(line[i]);
-                Console.WriteLine(aa.Length);
-            }
-
-        }
     }
+
+
+
 }
